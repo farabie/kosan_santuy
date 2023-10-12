@@ -8,6 +8,11 @@ class User extends Equatable {
   final List<String> selectedFavorite;
   final String selectedCity;
 
+  @override
+  String toString() {
+    return "{$id} - $name, $email";
+  }
+
   User(
     this.id,
     this.email, {

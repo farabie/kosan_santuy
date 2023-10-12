@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kosan_santuy/ui/pages/pages.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized.
+
+  // Initialize Firebase.
+  await Firebase.initializeApp();
   runApp(const KosanSantuy());
 }
 
