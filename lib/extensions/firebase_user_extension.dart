@@ -13,4 +13,6 @@ extension FirebaseUserExtension on auth.UserCredential {
         selectedFavorite: selectedFavorite,
         selectedCity: selectedCity,
       );
+
+  Future<User> fromFireStore() async => await UserServices.getUser(user!.uid);
 }

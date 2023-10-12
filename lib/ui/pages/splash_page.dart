@@ -27,6 +27,21 @@ class SplashPage extends StatelessWidget {
                 }
               },
               child: Text("Sign Up"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                SignInSignUpResult result = await AuthServices.signIn(
+                  "Indomeis2g3@gmail.com",
+                  "MieGagag123",
+                );
+
+                if (result.user == null) {
+                  print(result.message);
+                } else {
+                  print(result.user.toString());
+                }
+              },
+              child: Text("Sign In"),
             )
           ],
         ),

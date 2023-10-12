@@ -19,11 +19,38 @@ class AuthServices {
 
       return SignInSignUpResult(user: user);
     } catch (e) {
-      return SignInSignUpResult(
-        message: e.toString(),
-      );
+      final errorParts = e.toString().split(',');
+      if (errorParts.length > 1) {
+        return SignInSignUpResult(message: errorParts[1]);
+      } else {
+        return SignInSignUpResult(message: e.toString());
+      }
     }
   }
+
+  static Future<SignInSignUpResult> signIn(
+      String email, String password) async {
+    try {
+      auth.UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = await result.fromFireStore();
+      return SignInSignUpResult(user: user);
+    } catch (e) {
+      final errorParts = e.toString().split(',');
+      if (errorParts.length > 1) {
+        return SignInSignUpResult(message: errorParts[1]);
+      } else {
+        return SignInSignUpResult(message: e.toString());
+      }
+    }
+  }
+
+  static Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+  //Fungsi Untuk Token nantinya
+  static Stream<auth.User?> get userStream => _auth.authStateChanges();
 }
 
 class SignInSignUpResult {
