@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+    package="com.fantech.kosan_santuy">
     <application
         android:label="kosan_santuy"
         android:name="${applicationName}"
