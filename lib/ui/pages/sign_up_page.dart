@@ -105,12 +105,106 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 36,
-                        ),
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 36,
+                  ),
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Full Name",
+                        hintText: "Full Name"),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Email",
+                        hintText: "Email"),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Password",
+                        hintText: "Password"),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  TextField(
+                    controller: retypePasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Confirm Password",
+                        hintText: "Confirm Password"),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  FloatingActionButton(
+                      child: Icon(Icons.arrow_forward),
+                      backgroundColor: mainColor,
+                      elevation: 0,
+                      onPressed: () {
+                        if (!(nameController.text.trim() != "" &&
+                            emailController.text.trim() != "" &&
+                            passwordController.text.trim() != "" &&
+                            retypePasswordController.text.trim() != "")) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            backgroundColor: Color(0xFFFF5C83),
+                            message: "Please fill all the fields",
+                          )..show(context);
+                        } else if (passwordController.text !=
+                            retypePasswordController.text) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            backgroundColor: Color(0xFFFF5C83),
+                            message: "Mismatch password and confirmed password",
+                          )..show(context);
+                        } else if (passwordController.text.length < 6) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            backgroundColor: Color(0xFFFF5C83),
+                            message: "Password's length min 6 characters",
+                          )..show(context);
+                        } else if (!EmailValidator.validate(
+                            emailController.text)) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            backgroundColor: Color(0xFFFF5C83),
+                            message: "Wrong formatted email address",
+                          )..show(context);
+                        } else {
+                          widget.registrationData.name = nameController.text;
+                          widget.registrationData.email = emailController.text;
+                          widget.registrationData.password =
+                              passwordController.text;
+
+                          Provider.of<PageBloc>(context, listen: false)
+                              .add(GoToMainPage());
+                        }
+                      })
                 ],
               )
             ],
