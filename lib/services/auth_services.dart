@@ -38,7 +38,7 @@ class AuthServices {
     } catch (e) {
       final errorParts = e.toString().split(',');
       if (errorParts.length > 1) {
-        return SignInSignUpResult(message: errorParts[1]);
+        return SignInSignUpResult(message: errorParts[1].trim());
       } else {
         return SignInSignUpResult(message: e.toString());
       }
